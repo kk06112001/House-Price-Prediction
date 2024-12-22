@@ -7,8 +7,8 @@ from sklearn.preprocessing import StandardScaler
 application = Flask(__name__)
 app=application
 
-## import ridge regresor model and standard scaler pickle
-ridge_model=pickle.load(open('models/ridge.pkl','rb'))
+## import linear regresion model and standard scaler pickle
+linereg=pickle.load(open('models/linreg.pkl','rb'))
 standard_scaler=pickle.load(open('models/scaler.pkl','rb'))
 
 ## Route for home page
@@ -23,7 +23,7 @@ def predict_datapoint():
         floors = float(request.form.get('floors'))
 
         new_data_scaled=standard_scaler.transform([[bedrooms,bathrooms,sqft_living,floors]])
-        result=ridge_model.predict(new_data_scaled)
+        result=linereg.predict(new_data_scaled)
 
         return render_template('home.html',result=result[0])
 
